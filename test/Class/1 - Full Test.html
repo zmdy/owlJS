@@ -1,0 +1,68 @@
+<title>Testing Classes</title>
+
+<!-- Loads Test -->
+<script type="text/javascript" src="../../src/Class/Test.js"></script>
+
+<!-- Loads Question -->
+<script type="text/javascript" src="../../src/Class/Question.js"></script>
+
+<!-- Perform Tests -->
+<script type="text/javascript">
+	'use strict';
+
+	var 
+		// Void test
+		t = new Test(),
+
+		// Void questions
+		q = new Question({questionText: 'qDefault'}),
+
+		// Array of questions
+		qs = []
+
+		;
+
+	// Array of questions
+	for(let i=0; i<10; i++){qs.push(new Question({questionText: 'q' + i}));};
+
+	// Write void test and void question
+	document.write("<h2>Original instances.</h2>");
+	writeObject(t);
+	writeObject(q);
+	writeObject(qs);
+	
+	// Adding question to the test
+	document.write("<h2>Pushing unique question.</h2>");
+	t.setQuestion(q);
+	writeObject(t);
+
+	document.write("<h2>Pushing array of questions.</h2>");
+	t.setQuestions(qs);
+	writeObject(t);
+
+	// Testing raffle
+	document.write("<h2>Testing t.raffle</h2>");
+	var raf = t.raffle(5);
+
+	for(let elm in raf){writeObject(raf[elm])};
+
+	// Basic function to display objects in document.write
+	function writeObject(obj){
+		var rtr = "<strong>" + obj.__proto__.constructor.name + "</strong>";
+
+		for(let prp in obj){
+			var _c = obj[prp];
+
+			_c = _c == null ? '(NULL)' : _c.toString().substring(0, 50);
+			_c = _c.length == 50 ? _c + "..." : _c;
+
+			rtr += "<li>" + prp + " --> " + _c + "</li>";
+		}
+
+		rtr += "<hr/>";
+
+		document.write(rtr);
+
+		return(rtr);
+	}
+</script>
