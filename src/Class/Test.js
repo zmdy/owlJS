@@ -97,6 +97,23 @@ function Test(obj){
     }
     
     /*
+    * Remove Question
+    * @param {int} index Element index to be removed
+    */
+    this.removeQuestions = function(index){
+        var rtrQ = [];
+        
+        index = (typeof index == 'object' || typeof index == 'array') ? index : [index];
+        
+        for(let qst in this.questions)
+            
+            if(!index.includes(parseInt(qst)))
+                rtrQ.push(this.questions[qst]);
+        
+        this.questions = rtrQ;
+    }
+    
+    /*
     * Shuffle the array of questions using Fisher-Yattes algorithm
     * @returns {array} arr Return the shuffled array of questions
     */

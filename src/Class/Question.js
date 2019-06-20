@@ -45,6 +45,48 @@ function Question(obj){
     this.keys = obj['questionKeys'] || keys;
     
     /*
+    * Set Unique Answer
+    * @param {string} answer Answer text
+    * @param {string} key Answer key
+    */
+    this.setAnswer = function(answer, key){
+        this.answers.push(answer);
+        this.keys.push(key);
+    }
+    
+    /*
+    * Set Array of Answers
+    * @param {array} answers Answer texts
+    * @param {array} keys Answer keys
+    */
+    this.setAnswers = function(answers, keys){
+        for(let ans in answers){
+            this.answers.push(answers[ans]);
+            this.keys.push(keys[ans]);
+        }
+    }
+    
+    /*
+    * Remove Answer
+    * @param {int} index Elements indexes to be removed
+    */
+    this.removeAnswers = function(index){
+        var rtrA = [], rtrK = [];
+        
+        index = (typeof index == 'object' || typeof index == 'array') ? index : [index];
+        
+        for(let ans in this.answers){
+            if(!index.includes(parseInt(ans))){
+                rtrA.push(this.answers[ans]);
+                rtrK.push(this.keys[ans])
+            }
+        }
+        
+        this.answers = rtrA;
+        this.keys = rtrK;
+    }
+    
+    /*
     * Shuffle the array of answers using Fisher-Yattes algorithm
     * @returns {array} arr Return the shuffled array of answers
     */
