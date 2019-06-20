@@ -18,25 +18,32 @@
 		q = new Question({questionText: 'qDefault'}),
 
 		// Array of questions
-		qs = []
+		qs = [],
+        
+        // Answers and keys
+        a = [],
+        k = []
 
 		;
 
 	// Array of questions
-	for(let i=0; i<10; i++){qs.push(new Question({questionText: 'q' + i}));};
+	for(let i=0; i<10; i++){qs.push(new Question({questionText: 'q' + i}));}
+    
+    // Array of answers and keys
+    for(let i=0; i<10; i++){a.push('a' + i+1); k.push(i%2);}
 
 	// Write void test and void question
-	document.write("<h2>Original instances.</h2>");
+	document.write("<h2>Original instances</h2>");
 	writeObject(t);
 	writeObject(q);
 	writeObject(qs);
 	
 	// Adding question to the test
-	document.write("<h2>Pushing unique question.</h2>");
+	document.write("<h2>Pushing unique question</h2>");
 	t.setQuestion(q);
 	writeObject(t);
 
-	document.write("<h2>Pushing array of questions.</h2>");
+	document.write("<h2>Pushing array of questions</h2>");
 	t.setQuestions(qs);
 	writeObject(t);
 
@@ -46,6 +53,35 @@
 
 	for(let elm in raf){writeObject(raf[elm])};
 
+    // Testing answers and keys
+    document.write("<h2>Pushing unique answer</h2>");
+    q.setAnswer(a[0], k[0]);
+    writeObject(q);
+    
+    document.write("<h2>Pushing array of answers</h2>");
+    q.setAnswers(a, k);
+    writeObject(q);
+    
+    // Testing raffle
+	document.write("<h2>Testing q.raffle</h2>");
+	var raf = q.raffle(5);
+
+	for(let elm in raf){writeObject(raf[elm])};
+    
+    // Testing remove
+	document.write("<h2>Testing t.remove --> [0, 1, 2, 3]</h2>");
+    document.write("<p>Number of Questions Before --> " + t.questions.length + "</p>")
+    t.removeQuestions([0, 1, 2, 3]);
+    document.write("<p>Number of Questions After --> " + t.questions.length + "</p>")
+    
+    // Testing remove
+	document.write("<h2>Testing q.remove --> [0, 1, 2, 3]</h2>");
+    document.write("<p>Number of Answers Before --> " + q.answers.length + "</p>")
+    document.write("<p>Number of Keys Before --> " + q.keys.length + "</p>")
+    q.removeAnswers([0, 1, 2, 3]);
+    document.write("<p>Number of Answers After --> " + q.answers.length + "</p>")
+    document.write("<p>Number of Keys After --> " + q.keys.length + "</p>")
+    
 	// Basic function to display objects in document.write
 	function writeObject(obj){
 		var rtr = "<strong>" + obj.__proto__.constructor.name + "</strong>";
