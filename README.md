@@ -75,4 +75,186 @@ Generic True/False question.
 
 ## How to use
 
-(SOON...)
+owlJS Tests can be configured in JSON or MD files.
+
+The easiest way of writting test is making a Markdown file. 
+
+In the header of the file you can configure the properties of the Test itself, with 5 different properties, that can be shuffled in any position, *but keeping the specific markers to each property*.
+
+``` md
+# testName
++ testSubject
+* testType
+- testValue
+> testInstructions
+
+---
+```
+
+This header, when parsed into HTML will be turned in to:
+- `h1` tag --> testName
+- `li` tag --> testSubject, testType and testValue
+- `blockqoute` tag --> testInstructions
+
+The delimitation of the header is made by a `hr` tag or `---` markdown element.
+
+After the `---` delimiter, individual questions can be written:
+
+``` md
+Test Header
+---
+Question 01
+___
+Question 02
+___
+Question 03
+___
+(...)
+---
+Question N
+```
+
+The type of the question defines the way it must be written in the .md file.
+
+---
+
+### questionType: 'single'
+
+Questions of the 'single' type are standard in owlJS. They are used when is necessary to select a single option amoung many.
+
+```md
+In which country Alan Turing, considered the father of Computer Science, was born?
+
+- USA
+- Australia
+- Germany
+-- UK
+- Belgium
+
+```
+
+In this type of question, each alternative is written in a separated line starting with `-` or `--` delimiter. Beyond the alternatives itself, the questionComment and questionValue properties can also be defined in the text:
+
+
+```md
+In which country Alan Turing, considered the father of Computer Science, was born?
+
+-[C: Turing was born in Wilmslow, a very 'english' city name]
+-[50]
+- USA
+- Australia
+- Germany
+-- UK
+- Belgium
+
+```
+
+The `-[C: ...]` line defines the question comment.
+
+The `-[50]` line defines the question value, in this case set to 50 points.
+
+In 'single' questions, the standard question value is 1 point.
+
+These structures can be used in *any type of question*. Although, when multiple comments or multiple values are defined in the text of the question, the last one defined will be used.
+
+---
+
+### questionType: 'multiple'
+
+Questions of the 'multiple' are used when multiple options can be selected amoung the alternatives. In this case, each of them have a different key value.
+
+``` md
+What is the square root of -1?
+
+-[1] -1 has no real sqrt
+-[0] 0
+-[0] -pi/2
+-[2] i
+
+```
+
+The question above can have 2 right answers: the first or the last alternatives. But, considering that the question was 'What is the square root of -1' and not 'What is the *real* square root of -1', the last alternative (i) is a little bit more precise.
+
+In this case, the question value will be defined as the highest value presented amoung the answer keys. Therefore, 2 points.
+
+You can set the question value with the flag `-[questionValue]`, presented in the previous section. In this case, the value of each answer will be mapped to a range between 0 and questionValue.
+
+``` md
+What is the square root of -1?
+
+-[10]
+-[1] -1 has no real sqrt
+-[0] 0
+-[0] -pi/2
+-[2] i
+
+```
+
+---
+
+### questionType: 'choice'
+
+'Multiple' are the classic True or False questions. They also can be used to select multiple options amoung many, with the difference that each alternative can just have 2 values: 0 (or F) and 1 (or T).
+
+``` md
+Answer each alternative as True (T) or False(F).
+
+-[F] Kant was born in Turkey
+-[T] Nietzsche and Kant were born in the same country
+-[F] Therefore, Nietzsche was born in Turkey
+
+```
+
+This question can be re-written as:
+
+``` md
+Answer each alternative as True (T) or False(F).
+
+-[0] Kant was born in Turkey
+-[1] Nietzsche and Kant were born in the same country
+-[0] Therefore, Nietzsche was born in Turkey
+
+```
+
+When the `-[questionValue]` flag is set to a 'choice' question, the pontuation will be also mapped to a range between 0 and questionValue.
+
+``` md
+Answer each alternative as True (T) or False(F).
+
+-[10]
+-[C: Do you remember that any question can have comments? And, by the way, this one has a 10-score pontuation.]
+-[F] Kant was born in Turkey
+-[T] Nietzsche and Kant were born in the same country
+-[F] Therefore, Nietzsche was born in Turkey
+
+```
+
+---
+
+### questionType: 'complete'
+
+(SOON)
+
+---
+
+### questionType: 'completeKey'
+
+(SOON)
+
+---
+
+### questionType: 'fill'
+
+(SOON)
+
+---
+
+### questionType: 'short'
+
+(SOON)
+
+---
+
+### questionType: 'long'
+
+(SOON)
