@@ -21,7 +21,7 @@ function Identify(question){
         questionAnswers = [],
         questionKeys = [],
         questionValue,
-        questionComments
+        questionComment
     ;
     
     /*
@@ -45,10 +45,70 @@ function Identify(question){
         
         return this;
     }
-
+    
+    /*
+    * Identify the question areas (comment, value, key, types)
+    * @return {object} rtr Current processed questionAreas
+    */
+    this.processQuestionAreas = function(){
+        var
+            questionAreas = this.questionAreas.split('\n'),
+            regex = {
+                comment: [/^-\u005BC:\s\S/, /(-\u005BC:\s|\u005D)/g],
+                value: [/^-\u005B\d{1,}\u005D$/, /(-\u005B|\u005D)/g],
+                
+                single: [/^(-|--) /, /^(-|--)\s/],
+                multiple: [/^-\u005B\d{1,}\u005D\s\S/]
+            }
+        ;
+        
+        for(let area in questionAreas){
+            for(let reg in regex){
+                if(regex[reg][0].test(questionAreas[area])){
+                    var _value = questionAreas[area].replace(regex[reg][1],'');
+                    
+                    if(reg!='comment' & reg!='value')
+                        questionKeys.push(this.setQuestionKey(questionAreas[area], reg));
+                    
+                    questionAreas[area] = [];
+                    questionAreas[area][0] = _value;
+                    questionAreas[area][1] = reg;
+                    continue;
+                }
+            }
+        }
+        
+        this.questionAreas = questionAreas;
+        this.questionKeys = questionKeys;
+    }
+    
+    this.setQuestionKey = function(question, type){
+        var
+            regex = {
+                single: [/^--/, /^-/],
+                multiple: [/^-\u005B/, /\u005D\s/]
+            
+            },
+            
+            key;
+        
+        if(type == 'single'){
+            key = regex[type][0].test(question) ? 1 : 0;
+        }else if(type=='multiple'){
+            key = question.split(regex[type][1])[0].replace(regex[type][0], '');
+        }
+        
+        console.log('Q: %s\nK: ', question, key);
+        
+        return key;
+    }
     
     // 1st. step --> split questionText and questionAnswers
     this.setQuestionFields(question);
+    
+    // 2nd. step --> process questionAreas
+    // 3rd. step --> process questionKeys
+    this.processQuestionAreas();
     
     // Nth. step --> returns the current object
     return this;
