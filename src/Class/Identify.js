@@ -62,8 +62,10 @@ function Identify(question){
                 value: [/^-\u005B\d{1,}\u005D$/, /(-\u005B|\u005D)/g],
                 
                 single: [/^(-|--) /, /^(-|--)\s/],
-                multiple: [/^-\u005B\d{1,}\u005D\s\S/, /-\u005B\d{1,}\u005D\s/],
-                choice: [/^-\u005B(T|F)\u005D\s\S/, /-\u005B(T|F)\u005D\s/]
+                multiple: [/^-\u005B\d{1,}\u005D\s\S/, /^-\u005B\d{1,}\u005D\s/],
+                choice: [/^-\u005B(T|F)\u005D\s\S/, /^-\u005B(T|F)\u005D\s/],
+                complete: [/^-\u005BC\u005D\s\S/, /^-\u005BC\u005D\s/],
+                completeKey: [/^-\u005BC\s\d{1,}\u005D\s\S/, /^-\u005BC\s\d{1,}\u005D\s/]
             },
             // Return Answers
             rtrQ = []
@@ -116,18 +118,19 @@ function Identify(question){
             regex = {
                 single: [/^--/, /^-/],
                 multiple: [/^-\u005B/, /\u005D\s/],
-                choice: [/^-\u005B/, /\u005D\s/]
+                choice: [/^-\u005B/, /\u005D\s/],
+                completeKey: [/^-\u005BC\s/, /\u005D/]
             
             },
             
-            key;
+            key = null;
         
         if(type == 'single'){
             key = regex[type][0].test(question) ? 1 : 0;
-        }else if(type=='multiple' || type=='choice'){
+        }else if(type=='multiple' || type=='choice' || type == 'completeKey'){
             key = question.split(regex[type][1])[0].replace(regex[type][0], '');
             key = key.replace('T', 1).replace('F', 0);
-        }
+        } 
         
         //console.log('Q: %s\nK: ', question, key);
         

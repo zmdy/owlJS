@@ -194,7 +194,7 @@ What is the square root of -1?
 
 ### questionType: 'choice'
 
-'Multiple' are the classic True or False questions. They also can be used to select multiple options amoung many, with the difference that each alternative can just have 2 values: 0 (or F) and 1 (or T).
+'Choice' are the classic True or False questions. They also can be used to select multiple options amoung many, with the difference that each alternative can just have 2 values: 0 (or F) and 1 (or T).
 
 ``` md
 Answer each alternative as True (T) or False(F).
@@ -231,17 +231,18 @@ Answer each alternative as True (T) or False(F).
 
 ---
 
+### questionType: 'completeKey'
+
+The questions of the type 'completeKey' are used when is necessary to analise alternatives and compare it to others. (SOON)
+
+---
+
 ### questionType: 'complete'
 
 (SOON)
 
 ---
 
-### questionType: 'completeKey'
-
-(SOON)
-
----
 
 ### questionType: 'fill'
 
