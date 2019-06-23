@@ -32,9 +32,7 @@ The type of the test is based in the perspective of learning as a 3-step process
 2. Set or individual topics covered during the classes --> Formative Test
 3. The completion of the learning process --> Summative Test
 
-The test questions are also defined as objects. In this perspective, a Test object contains an array of Question 
-objects. These questions can be indiviually acessed, modified, answered, and even shuffled and raffled to create 
-personalized tests to each student.
+The test questions are also defined as objects. In this perspective, a Test object contains an array of Question objects. These questions can be indiviually acessed, modified, answered, and even shuffled and raffled to create personalized tests to each student.
 
 ---
 
@@ -59,17 +57,17 @@ myQuestion = {
 
 The basic attributes of a question are its text, value and comment. Beyond these are also the Answers and the Type.
 
-owlJS have 8 different types of Question. Each of them have unique uses, although all have the same properties.
+owlJS have 9 different types of Question. Each of them have unique uses, although all have the same properties.
 
 1. Single --> Multiple-choice with just one selection = 1 right answer. Just one item can have the right answer.
-2. Multiple --> Multiple-choice with multiple selection. Each item can have a different pontuation and a different 
-level of accuracy.
+2. Multiple --> Multiple-choice with multiple selection. Each item can have a different pontuation and a different  level of accuracy.
 3. Choice --> True or False question.
-4. Complete --> Each alternative have a blank space (__) in front of it to be completed freely or according to rules. 
-Generic True/False question.
-5. Fill --> Fill blank spaces in a text.
-6. Short --> Short answers. Will be turned in to a `input text` HTML element when rendered;
-7. Long --> Long answer. Will be turned in to a `textarea` HTML element when rendered.
+4. Complete --> Each alternative have a blank space (__) in front of it to be completed freely or according to rules. Generic True/False question.
+5. Complete Key --> Each alternative have a blank space (__) in front of it to be completed  according to a numeric answer key.
+6. Complete Word --> Each alternative have a blank space (__) in front of it to be completed  according to a non-numeric answer key.
+7. Fill --> Fill blank spaces in a text.
+8. Short --> Short answers. Will be turned in to a `input text` HTML element when rendered;
+9. Long --> Long answer. Will be turned in to a `textarea` HTML element when rendered.
 
 ---
 
