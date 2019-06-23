@@ -22,6 +22,9 @@ function Question(obj){
         type,
         answers = [],
         keys = [],
+        answerd = false,
+        answeredKey = null,
+        points = 0,
 
         questionTypes = ['single', 'multiple', 'choice', 'complete', 'completeKey', 'fill', 'long', 'short']
     ;
@@ -43,6 +46,26 @@ function Question(obj){
     
     this.answers = obj['questionAnswers'] || answers;
     this.keys = obj['questionKeys'] || keys;
+    
+    /*
+    * Answers the question
+    * @param {string} answerKey Answer key text
+    */
+    this.answer = function(answeredKey){
+        this.answered = true;
+        this.answeredKey = answeredKey;
+        
+        this.processAnswered();
+    }
+    
+    this.processAnswered = function(){
+        if(this.type == 'single' || this.type == 'multiple'){
+            this.points = this.keys[this.answers.indexOf(this.answeredKey)];
+        }
+        
+        console.log(this.answeredKey);
+        console.log(this.points);
+    }
     
     /*
     * Set Unique Answer
