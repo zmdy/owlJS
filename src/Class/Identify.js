@@ -65,7 +65,10 @@ function Identify(question){
                 multiple: [/^-\u005B\d{1,}\u005D\s\S/, /^-\u005B\d{1,}\u005D\s/],
                 choice: [/^-\u005B(T|F)\u005D\s\S/, /^-\u005B(T|F)\u005D\s/],
                 complete: [/^-\u005BC\u005D\s\S/, /^-\u005BC\u005D\s/],
-                completeKey: [/^-\u005BC\s\d{1,}\u005D\s\S/, /^-\u005BC\s\d{1,}\u005D\s/]
+                completeKey: [/^-\u005BC\s\d{1,}\u005D\s\S/, /^-\u005BC\s\d{1,}\u005D\s/],
+                completeWord: [/^-\u005BC\s(\S|\s){1,}\u005D\s\S/, /^-\u005BC\s(\S|\s){1,}\u005D\s/],
+                fill: [/^-\u005BF\s(\S|\s){1,}\u005D\s\S/, /^-\u005BF\s(\S|\s){1,}\u005D\s/]
+                
             },
             // Return Answers
             rtrQ = []
@@ -88,14 +91,14 @@ function Identify(question){
                         rtrQ.push(_value);
                         // Get the value and pushes it
                         questionKeys.push(this.setQuestionKey(questionAreas[area], reg));
-                        continue;
+                        break;
                     } else if(reg=='comment'){
                         var _comment = _value;
-                        continue;
+                        break;
                     }
                     else{
                         var _testV = _value;
-                        continue;
+                        break;
                     }
                 }
             }
@@ -119,20 +122,22 @@ function Identify(question){
                 single: [/^--/, /^-/],
                 multiple: [/^-\u005B/, /\u005D\s/],
                 choice: [/^-\u005B/, /\u005D\s/],
-                completeKey: [/^-\u005BC\s/, /\u005D/]
+                completeKey: [/^-\u005BC\s/, /\u005D/],
+                completeWord: [/^-\u005BC\s/, /\u005D/, /\s\u007C\s/],
+                fill: [/^-\u005BF\s/, /\u005D/, /\s\u002D\s/]
             
             },
             
-            key = null;
-        
+            key = null,
+            _type = type;
         if(type == 'single'){
             key = regex[type][0].test(question) ? 1 : 0;
         }else if(type=='multiple' || type=='choice' || type == 'completeKey'){
             key = question.split(regex[type][1])[0].replace(regex[type][0], '');
-            key = key.replace('T', 1).replace('F', 0);
-        } 
-        
-        //console.log('Q: %s\nK: ', question, key);
+            if(type=='choice') key = key.replace('T', 1).replace('F', 0);
+        } else if(_type='completeWord' || _type=='fill'){
+            key = question.split(regex[_type][1])[0].replace(regex[_type][0], '').split(regex[_type][2]);
+        }     
         
         return key;
     }

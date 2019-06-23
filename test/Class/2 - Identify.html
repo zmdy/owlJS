@@ -8,19 +8,48 @@
 	'use strict';
     
     var 
-        question01 = 'During WW2, a Alan Turing developed a machine that helped break the German Enigma code. He also laid the groundwork for modern computing and theorized about artificial intelligence.\nIn which country Turing, considered the father of Computer Science, was born?\n-[C: Turing was born in Wilmslow, a very \'english\' city name]\n-[50]\n- USA\n- Australia\n- Germany\n-- UK\n- Belgium',
+        questions = [
+            'During WW2, a Alan Turing developed a machine that helped break the German Enigma code. He also laid the groundwork for modern computing and theorized about artificial intelligence.\nIn which country Turing, considered the father of Computer Science, was born?\n-[C: Turing was born in Wilmslow, a very \'english\' city name]\n-[50]\n- USA\n- Australia\n- Germany\n-- UK\n- Belgium',
         
-        question02 = 'What is the square root of -1?\n-[1] -1 has no real sqrt\n-[0] 0\n-[0] -pi/2\n-[2] i',
+            'What is the square root of -1?\n-[1] -1 has no real sqrt\n-[0] 0\n-[0] -pi/2\n-[2] i',
         
-        question03 = 'Answer each alternative as True (T) or False(F).\n-[F] Kant was born in Turkey\n-[T] Nietzsche and Kant were born in the same country\n-[F] Therefore, Nietzsche was born in Turkey',
+            'Answer each alternative as True (T) or False(F).\n-[F] Kant was born in Turkey\n-[T] Nietzsche and Kant were born in the same country\n-[F] Therefore, Nietzsche was born in Turkey',
 
-        question04 = 'Chose your favorite Operational System:\n-[C] Ubuntu\n-[C]Debian\n-[C] Windows 10\n-[C] macOS\n-[C] Other Linux distro\n-[C] Other',
+            'Chose your favorite Operational System:\n-[C] Ubuntu\n-[C]Debian\n-[C] Windows 10\n-[C] macOS\n-[C] Other Linux distro\n-[C] Other',
 
-        question05 = 'Fill the blanks with the creation order (1 to 4) of the languages below:\n-[C 4] Kotlin\n-[C 1] C\n-[C 2] C++\n-[C 3] Python',
+            'Fill the blanks with the creation order (1 to 4) of the languages below:\n-[C 4] Kotlin\n-[C 1] C\n-[C 2] C++\n-[C 3] Python',
         
-        i = new Identify(question05);
+            'Fill in the blanks with the words that correctly complete the sentences:\nGNOME - KDE - Unity - Linus Torvalds - Richard Stallman\n-[C KDE] Graphic Interface currently in version 5  (2019)\n-[C Richard Stallman] Considered the GNU project philosopher\n-[C Linus Torvalds] Developer of the Linux Kernel\n-[C GNOME | UNITY] Standard Graphic Interface of Ubuntu',
+        
+            'Complete the blanks with the capitals:\n-[F Rome - Paris] {F} is the capital of Italy, and {F} is the capital of France\n-[F Tokyo - Beijing] The japanese capital, {F}, is very big city, such as {F}, the chinese capital.'
+        ],
+        
+        i;
     
-        console.log(i);
+    for(let q in questions){
+        i = new Identify(questions[q]);
+        writeObject(i);
+    }
+    
+    	// Basic function to display objects in document.write
+	function writeObject(obj){
+		var rtr = "<strong>" + obj.__proto__.constructor.name + "</strong>";
+
+		for(let prp in obj){
+			var _c = obj[prp];
+
+			_c = _c == null ? '(NULL)' : _c.toString().substring(0, 50);
+			_c = _c.length == 50 ? _c + "..." : _c;
+
+			rtr += "<li>" + prp + " --> " + _c + "</li>";
+		}
+
+		rtr += "<hr/>";
+
+		document.write(rtr);
+
+		return(rtr);
+	}
     ;
     
 	
