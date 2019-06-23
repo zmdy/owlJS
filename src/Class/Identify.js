@@ -67,7 +67,9 @@ function Identify(question){
                 complete: [/^-\u005BC\u005D\s\S/, /^-\u005BC\u005D\s/],
                 completeKey: [/^-\u005BC\s\d{1,}\u005D\s\S/, /^-\u005BC\s\d{1,}\u005D\s/],
                 completeWord: [/^-\u005BC\s(\S|\s){1,}\u005D\s\S/, /^-\u005BC\s(\S|\s){1,}\u005D\s/],
-                fill: [/^-\u005BF\s(\S|\s){1,}\u005D\s\S/, /^-\u005BF\s(\S|\s){1,}\u005D\s/]
+                fill: [/^-\u005BF\s(\S|\s){1,}\u005D\s\S/, /^-\u005BF\s(\S|\s){1,}\u005D\s/],
+                short: [/^-\u005BS\s(\S|\s|\d){1,}\u005D/, /^-\u005BS\s(\S|\s|\d){1,}\u005D/],
+                long: [/^-\u005BL\s(\S|\s|\d){1,}\u005D/, /^-\u005BL\s(\S|\s|\d){1,}\u005D/]
                 
             },
             // Return Answers
@@ -125,19 +127,32 @@ function Identify(question){
                 completeKey: [/^-\u005BC\s/, /\u005D/],
                 completeWord: [/^-\u005BC\s/, /\u005D/, /\s\u007C\s/],
                 fill: [/^-\u005BF\s/, /\u005D/, /\s\u002D\s/]
-            
             },
             
             key = null,
             _type = type;
-        if(type == 'single'){
-            key = regex[type][0].test(question) ? 1 : 0;
-        }else if(type=='multiple' || type=='choice' || type == 'completeKey'){
-            key = question.split(regex[type][1])[0].replace(regex[type][0], '');
-            if(type=='choice') key = key.replace('T', 1).replace('F', 0);
-        } else if(_type='completeWord' || _type=='fill'){
-            key = question.split(regex[_type][1])[0].replace(regex[_type][0], '').split(regex[_type][2]);
-        }     
+        
+        switch(type){
+            case 'single':
+                key = regex[type][0].test(question) ? 1 : 0;  
+                break;
+                
+            case 'multiple':
+            case 'choice':
+            case 'completeKey':
+                key = question.split(regex[type][1])[0].replace(regex[type][0], '');
+                if(type=='choice') key = key.replace('T', 1).replace('F', 0);
+                break;
+                
+            case 'completeWord':
+            case 'fill':
+                key = question.split(regex[_type][1])[0].replace(regex[_type][0], '').split(regex[_type][2]);
+                break;
+                
+            default:
+                key = null;
+                break;
+        }
         
         return key;
     }

@@ -21,13 +21,18 @@
         
             'Fill in the blanks with the words that correctly complete the sentences:\nGNOME - KDE - Unity - Linus Torvalds - Richard Stallman\n-[C KDE] Graphic Interface currently in version 5  (2019)\n-[C Richard Stallman] Considered the GNU project philosopher\n-[C Linus Torvalds] Developer of the Linux Kernel\n-[C GNOME | UNITY] Standard Graphic Interface of Ubuntu',
         
-            'Complete the blanks with the capitals:\n-[F Rome - Paris] {F} is the capital of Italy, and {F} is the capital of France\n-[F Tokyo - Beijing] The japanese capital, {F}, is very big city, such as {F}, the chinese capital.'
+            'Complete the blanks with the capitals:\n-[F Rome - Paris] {F} is the capital of Italy, and {F} is the capital of France\n-[F Tokyo - Beijing] The japanese capital, {F}, is very big city, such as {F}, the chinese capital.',
+            
+            'What is the value of pi (3 decimals)?\n-[S 5]',
+            
+            'What is the kernel of an operating system?\n-[L 500]'
         ],
         
         i;
     
     for(let q in questions){
         i = new Identify(questions[q]);
+        console.log(i);
         writeObject(i);
     }
     
