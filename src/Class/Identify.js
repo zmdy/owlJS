@@ -118,6 +118,10 @@ function Identify(question){
         return this;
     }
     
+    /*
+    * Identify the question keys based on original text
+    * @return {object} key Processed key
+    */
     this.setQuestionKey = function(question, type){
         var
             regex = {
@@ -157,6 +161,40 @@ function Identify(question){
         return key;
     }
     
+    /*
+    * Process the questionValue based on questionKeys
+    * @param {object} question JSON object
+    */
+    this.processQuestionValue = function(){
+        var
+            val = this.questionValue,
+            keys = this.questionKeys,
+            maxV = keys[0];
+        
+        // Find the biggest
+        for(let q in keys){
+            if(parseFloat(keys[q])){
+                maxV = maxV > parseFloat(keys[q]) ? maxV : parseFloat(keys[q]);
+            }
+        }
+        
+        // Process questionValue
+        if(val == null || val == 0) val = parseFloat(val) > parseFloat(maxV) ? val : maxV;
+        val = val == null ? 1 : val;
+        
+        // Process Question Keys
+        for(let q in keys)
+            if(parseFloat(keys[q]) && this.questionType!='completeKey')
+                keys[q] = keys[q] * (val / maxV);
+        
+        // Updates
+        this.questionValue = val;
+        this.questionKeys = keys;
+        
+        // Returns
+        return this;
+    }
+    
     // 1st. step --> split questionText and questionAnswers
     this.setQuestionFields(question);
     
@@ -165,6 +203,7 @@ function Identify(question){
     this.processQuestionAreas();
 
     // 4th. step --> process questionValue
+    this.processQuestionValue();
     
     // Nth. step --> returns the current object
     return this;
