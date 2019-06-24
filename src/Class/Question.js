@@ -26,7 +26,7 @@ function Question(obj){
         answeredKey = null,
         points = 0,
 
-        questionTypes = ['single', 'multiple', 'choice', 'complete', 'completeKey', 'fill', 'long', 'short']
+        questionTypes = ['single', 'multiple', 'choice', 'complete', 'completeKey', 'completeWord', 'fill', 'long', 'short']
     ;
 
     // Starts obj
@@ -58,15 +58,69 @@ function Question(obj){
         this.processAnswered();
     }
     
+    /*
+    * Process the answeredQuestion with the answerKeys
+    * @param {string} answerKey Answer key text
+    */
     this.processAnswered = function(){
         if(this.type == 'single' || this.type == 'multiple'){
             this.points = this.keys[this.answers.indexOf(this.answeredKey)];
+        } else if(this.type == 'completeWord'){
+            var ansKey = Array.isArray(this.answeredKey) ? this.answeredKey : [this.answeredKey];
+            
+            for(let key in this.keys)
+                for(let keyR in this.keys[key])
+                    console.log(
+                        '%s & %s --> %s',
+                        ansKey[key],
+                        this.keys[key][keyR],
+                        compareStrings(ansKey[key], this.keys[key][keyR])
+                    ); 
         }
-        
-        console.log(this.answeredKey);
-        console.log(this.points);
     }
     
+    /*
+    * Sorensen-Dice Coefficient Algorithm --> check the similarity of two strings
+    * @param {string} str1 First String
+    * @param {string} str2 Second String
+    */
+    function compareStrings(str1, str2) {
+        // Normalizes
+        str1 = str1.replace(/\s+/g, '').toLowerCase();;
+        str2 = str2.replace(/\s+/g, '').toLowerCase();
+        
+        // Testing
+        if (!str1.length && !str2.length) return 1;
+        if (!str1.length || !str2.length) return 0;
+        if (str1 === str2) return 1;
+        if (str1.length === 1 && str2.length === 1) return 0;
+        if (str1.length < 2 || str2.length < 2) return 0;
+
+        let
+            firstBigrams = new Map(),
+            intersectionSize = 0;
+        for (let i = 0; i < str1.length - 1; i++) {
+            const
+                bigram = str1.substring(i, i + 2),
+                count = firstBigrams.has(bigram) ? firstBigrams.get(bigram) + 1 : 1;
+
+            firstBigrams.set(bigram, count);
+        };
+
+        for (let i = 0; i < str2.length - 1; i++) {
+            const 
+                bigram = str2.substring(i, i + 2),
+                count = firstBigrams.has(bigram) ? firstBigrams.get(bigram) : 0;
+
+            if (count > 0) {
+                firstBigrams.set(bigram, count - 1);
+                intersectionSize++;
+            }
+        }
+
+        return (2.0 * intersectionSize) / (str1.length + str2.length - 2);
+    }
+
     /*
     * Set Unique Answer
     * @param {string} answer Answer text
