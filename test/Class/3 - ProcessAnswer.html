@@ -6,6 +6,9 @@
 <!-- Loads Question -->
 <script type="text/javascript" src="../../src/Class/Question.js"></script>
 
+<!-- Loads Functions -->
+<script src="../script.js"></script>
+
 <!-- Perform Tests -->
 <script type="text/javascript">
 	'use strict';
@@ -16,13 +19,22 @@
             
             'What is the square root of -1?\n-[1] -1 has no real sqrt\n-[0] 0\n-[0] -pi/2\n-[2] i',
             
-            'Fill in the blanks with the words that correctly complete the sentences:\nGNOME - KDE - Unity - Linus Torvalds - Richard Stallman\n-[C KDE] Graphic Interface currently in version 5  (2019)\n-[C Richard Stallman] Considered the GNU project philosopher\n-[C Linus Torvalds] Developer of the Linux Kernel\n-[C GNOME | UNITY] Standard Graphic Interface of Ubuntu'
+            'Answer each alternative as True (T) or False(F).\n-[F] Kant was born in Turkey\n-[T] Nietzsche and Kant were born in the same country\n-[F] Therefore, Nietzsche was born in Turkey',
+            
+            'Fill the blanks with the creation order (1 to 4) of the languages below:\n-[C: Good luck ;)]\n-[10]\n-[C 4] Kotlin\n-[C 1] C\n-[C 2] C++\n-[C 3] Python',
+            
+            'Fill in the blanks with the words that correctly complete the sentences:\nGNOME - KDE - Unity - Linus Torvalds - Richard Stallman\n-[C KDE] Graphic Interface currently in version 5  (2019)\n-[C Richard Stallman] Considered the GNU project philosopher\n-[C Linus Torvalds] Developer of the Linux Kernel\n-[C GNOME | UNITY] Standard Graphic Interface of Ubuntu',
+            
+            'Complete the blanks with the capitals:\n-[F Rome - Paris] {F} is the capital of Italy, and {F} is the capital of France\n-[F Tokyo - Beijing] The japanese capital, {F}, is very big city, such as {F}, the chinese capital.'
         ],
         
         answers = [
             'UK',
             '-1 has no real sqrt',
-            ['kde', 'r. staffman', 'linus torvalds', 'Gnome']
+            ['T', 'T', 'F'],
+            [2,1,4,3],
+            ['kde', 'r. staffman', 'linus torvalds', 'Gnome'],
+            [["Rome", "Pari$"], ["Tokiow", "idk"]]
         ],
         
         i, qst;
@@ -33,27 +45,7 @@
         
         qst.answer(answers[q]);
         
+        document.write("<p>" + questions[q] + "</p><hr/>");
         writeObject(qst);
     }
-    
-    // Basic function to display objects in document.write
-	function writeObject(obj){
-		var rtr = "<strong>" + obj.__proto__.constructor.name + "</strong>";
-
-		for(let prp in obj){
-			var _c = obj[prp];
-
-			_c = _c == null ? '(NULL)' : _c.toString().substring(0, 50);
-			_c = _c.length == 50 ? _c + "..." : _c;
-
-			rtr += "<li>" + prp + " --> " + _c + "</li>";
-		}
-
-		rtr += "<hr/>";
-
-		document.write(rtr);
-
-		return(rtr);
-	}
-    ;
 </script>

@@ -6,6 +6,9 @@
 <!-- Loads Question -->
 <script type="text/javascript" src="../../src/Class/Question.js"></script>
 
+<!-- Loads Functions -->
+<script src="../script.js"></script>
+
 <!-- Perform Tests -->
 <script type="text/javascript">
 	'use strict';
@@ -81,24 +84,4 @@
     q.removeAnswers([0, 1, 2, 3]);
     document.write("<p>Number of Answers After --> " + q.answers.length + "</p>")
     document.write("<p>Number of Keys After --> " + q.keys.length + "</p>")
-    
-	// Basic function to display objects in document.write
-	function writeObject(obj){
-		var rtr = "<strong>" + obj.__proto__.constructor.name + "</strong>";
-
-		for(let prp in obj){
-			var _c = obj[prp];
-
-			_c = _c == null ? '(NULL)' : _c.toString().substring(0, 50);
-			_c = _c.length == 50 ? _c + "..." : _c;
-
-			rtr += "<li>" + prp + " --> " + _c + "</li>";
-		}
-
-		rtr += "<hr/>";
-
-		document.write(rtr);
-
-		return(rtr);
-	}
 </script>
