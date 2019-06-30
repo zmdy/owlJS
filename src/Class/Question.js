@@ -66,66 +66,76 @@ function Question(obj){
     * @param {string} answerKey Answer key text
     */
     this.processAnswered = function(){
-        if(this.type == 'single' || this.type == 'multiple'){
-            this.points = this.keys[this.answers.indexOf(this.answeredKey)] || this.value;
-        } else if(this.type=='choice'){
-            var 
-                ansKey = Array.isArray(this.answeredKey) ? this.answeredKey : [this.answeredKey],
-                sum = 0;
-            
-            this.points = [];
-            
-            for(let key in this.keys){
-                this.points.push(ansKey[key].replace(/T/g, 1).replace(/F/g, 0));
-                sum += this.keys[key] == ansKey[key].replace(/T/g, 1).replace(/F/g, 0) ? 1 : 0;
-            }
-            
-            this.points.unshift(sum / this.keys.length);
-        } else if(this.type=='completeKey'){
-            var 
-                ansKey = ansKey = Array.isArray(this.answeredKey) ? this.answeredKey : [this.answeredKey],
-                sum = 0;
-            
-            this.points = [];
-            
-            for(let key in this.keys){
-                this.points.push(this.keys[key] == ansKey[key] ? 1 : 0);
-                sum += this.keys[key] == ansKey[key] ? 1 : 0;
-            }
-            
-            this.points.unshift(sum / this.keys.length);
-        }
-        else if(this.type == 'completeWord' || this.type=='fill'){
-            var
-                ansKey = Array.isArray(this.answeredKey) ? this.answeredKey : [this.answeredKey],
-                big,
-                sum = 0,
-                count = 0;
-            
-            this.points = [];
-            
-            for(let key in this.keys){
-                big = null;
+        switch(this.type){
+            case 'single':
+            case 'multiple':
+                // Search the answeredKey in the keyValues
+                this.points = this.keys[this.answers.indexOf(this.answeredKey)] || this.value;
+                break;
                 
-                if(this.type == 'completeWord'){
-                    for(let keyR in this.keys[key]){
-                            big = compareStrings(ansKey[key], this.keys[key][keyR]) > big ?
-                                   compareStrings(ansKey[key], this.keys[key][keyR])  : big;
-                    }    
-                    this.points.push(big);
-                    sum += big;
-                } else{
-                    for(let keyR in this.keys[key]){
-                        big = compareStrings(this.keys[key][keyR], ansKey[key][keyR]);
-                        this.points.push(big);
-                        sum += big;
-                        count++;
-                    }
-                }
-            }
-            if(this.type == 'completeWord'){this.points.unshift(sum / this.keys.length);}
-            else{this.points.unshift(sum / count);}
             
+            case 'choice':
+            case 'completeKey':
+            case 'completeWord':
+            case 'fill':
+                var
+                    ansKey =  Array.isArray(this.answeredKey) ? this.answeredKey : [this.answeredKey],
+                    sum = 0;
+                
+                // Turn this.points in to array
+                this.points = [];
+                
+                // In each question key
+                for(let key in this.keys){
+                    if(this.type == 'choice'){
+                        this.points.push(ansKey[key].replace(/T/g, 1).replace(/F/g, 0));
+                        sum += this.keys[key] == ansKey[key].replace(/T/g, 1).replace(/F/g, 0) ? 1 : 0;    
+                    }else if(this.type=='completeKey'){
+                        this.points.push(this.keys[key] == ansKey[key] ? 1 : 0);
+                        sum += this.keys[key] == ansKey[key] ? 1 : 0;
+                    } else if(this.type == 'completeWord' || this.type=='fill'){
+                        var big = null, count;
+                        if(this.type == 'completeWord'){
+                            for(let keyR in this.keys[key])
+                                    big = compareStrings(ansKey[key], this.keys[key][keyR]) > big ? compareStrings(ansKey[key], this.keys[key][keyR])  : big;
+                            this.points.push(big);
+                            sum += big;
+                        } else{
+                            for(let keyR in this.keys[key]){
+                                big = compareStrings(this.keys[key][keyR], ansKey[key][keyR]);
+                                this.points.push(big);
+                                sum += big;
+                                count++;
+                            }
+                        }
+                    }
+                    if(this.type == 'completeWord'){this.points.unshift(sum / this.keys.length);}
+                }
+                this.points.unshift(sum / this.keys.length);
+                
+                break;
+                
+            case  'complete':
+                 var
+                    ansKey =  Array.isArray(this.answeredKey) ? this.answeredKey : [this.answeredKey],
+                     sum = 0;
+                
+                // Array
+                this.points = [];
+                
+                // Make it so!
+                for(let key in ansKey){
+                    var aux = this.answers.indexOf(ansKey[key]) != -1 ? 1 : 0;
+                    this.points.push(aux);
+                    sum += aux;
+                }
+                
+                this.points.unshift(sum / ansKey.length);
+                break;
+                
+            default:
+                this.points = this.answeredKey != null ? 1 : 0;
+                break;
         }
     }
     
