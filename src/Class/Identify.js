@@ -128,6 +128,7 @@ function Identify(question){
                 single: [/^--/, /^-/],
                 multiple: [/^-\u005B/, /\u005D\s/],
                 choice: [/^-\u005B/, /\u005D\s/],
+                complete: [/^-\u005BC\u005D\s/],
                 completeKey: [/^-\u005BC\s/, /\u005D/],
                 completeWord: [/^-\u005BC\s/, /\u005D/, /\s\u007C\s/],
                 fill: [/^-\u005BF\s/, /\u005D/, /\s\u002D\s/]
@@ -152,6 +153,10 @@ function Identify(question){
             case 'fill':
                 key = question.split(regex[_type][1])[0].replace(regex[_type][0], '').split(regex[_type][2]);
                 break;
+                
+            case 'complete':
+                key = question.replace(regex[type][0], '');
+                break
                 
             default:
                 key = null;
