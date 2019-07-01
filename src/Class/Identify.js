@@ -131,7 +131,9 @@ function Identify(question){
                 complete: [/^-\u005BC\u005D\s/],
                 completeKey: [/^-\u005BC\s/, /\u005D/],
                 completeWord: [/^-\u005BC\s/, /\u005D/, /\s\u007C\s/],
-                fill: [/^-\u005BF\s/, /\u005D/, /\s\u002D\s/]
+                fill: [/^-\u005BF\s/, /\u005D/, /\s\u002D\s/],
+                short: [/^-\u005BS\s/, /\u005D/],
+                long: [/^-\u005BL\s/, /\u005D/]
             },
             
             key = null,
@@ -159,7 +161,7 @@ function Identify(question){
                 break
                 
             default:
-                key = null;
+                key = question.replace(regex[type][0], '').replace(regex[type][1], '').split(' ');
                 break;
         }
         
