@@ -39,8 +39,7 @@ function createQuestion(){
     
     q = createField('section', 'question'+(ctd+1), 'question', parent);
     addComponent(q);
-    addControl(q, 'Answer', createAnswer);
-    addControl(q, 'Key', createKey, deleteKey);
+    addControl(q, 'Answer', createAnswer, deleteAnswer);
 }
 
 /*
@@ -65,7 +64,7 @@ function createAnswer(){
         ctd = document.querySelectorAll('#' + parent.id + " > .answer").length || 0,
         a;
     
-    a = createField('span', parent.id + 'Answer' + (ctd+1), 'answer', parent);
+    a = createField('div', parent.id + 'Answer' + (ctd+1), 'answer', parent);
     addComponent(a);
 }
 
@@ -78,30 +77,6 @@ function deleteAnswer(){
         ctd = parent.querySelectorAll('.answer').length || 0;
         
     parent.removeChild(parent.querySelectorAll('.answer')[ctd - 1]);
-}
-
-/*
-* Function to generate new question keys
-*/ 
-function createKey(){
-    var
-        parent = this.parentNode.parentNode,
-        ctd = document.querySelectorAll('#' + parent.id + " > .key").length || 0,
-        k;
-    
-    k = createField('span', parent.id + 'Key' + (ctd+1), 'key', parent);
-    addComponent(k);
-}
-
-/*
-* Deletes last question key
-*/ 
-function deleteKey(){
-    var
-        parent = this.parentNode.parentNode,
-        ctd = parent.querySelectorAll('.key').length || 0;
-        
-    parent.removeChild(parent.querySelectorAll('.key')[ctd - 1]);
 }
 
 /*
@@ -139,8 +114,7 @@ function addComponent(field){
         fields = {
             test: ['Name', 'Subject', 'Value', 'Instructions', 'Type'],
             question: ['Text', 'Value', 'Comment', 'Type', 'Answered', 'Points'],
-            answer: ['Text'],
-            key: ['Text']
+            answer: ['Answer', 'Key']
         },
         
         testTypes = [ 'diagnostic', 'formative', 'summative'],
