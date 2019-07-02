@@ -1,0 +1,106 @@
+/*
+* owlJS
+* http://github.com/zmdy/owlJS
+* MIT Licensed
+*
+* Copyright (C) 2019 Hudson Uriel Ferreira, http://gihub.com/zmdy
+*/
+
+/*
+* Standard owlJS stylesheet
+*/ 
+
+/******************** Reset ********************/
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'sans-serif';
+}
+
+/******************** Owl Classes ********************/
+.owl{
+    width: 98vw;
+    height: 96vh;
+    
+    padding: 1%;
+    
+    background: var(--gray0);
+}
+
+.owl section{
+    margin: 2.5% 0%;
+}
+
+.owl h1,
+.owl h2,
+.owl h3,
+.owl h4,
+.owl h5,
+.owl h6{
+    color: var(--blue6);
+    font-size: 1.5em;
+}
+
+.owl p,
+.owl input,
+.owl a,
+.owl label{
+    color: var(--gray9);
+    font-size: 1em;
+}
+
+.owl label,
+.owl p{
+    display: block;
+    padding: 0.5%;
+}
+
+.owl label input,
+.owl select{
+    float: right;
+    width: 80%;
+}
+
+/******************** Button ********************/
+._new,
+._del{
+    width: 40% !important;
+    display: inline;
+    float: right;
+    box-shadow: none;
+    border: none;
+}
+
+._new{
+    background: var(--green4);
+    border: solid 0.1em var(--green7);
+}
+
+._del{
+    background: var(--red4);
+    border: solid 0.1em var(--red7);
+}
+
+/******************** Question ********************/
+.owl .question{
+    width: 95%;
+    margin-left: 2.5%;    
+    border-bottom: dotted 0.1em var(--blue4);
+}
+
+.owl .question h2{
+    color: var(--blue4);
+    font-size: 1.25em;
+}
+
+.owl .question p:last-child{
+    margin-bottom: 5%;
+}
+
+/******************** Question Answer | Question Key ********************/
+.question .answer,
+.question .key{
+    width: 45%;
+    display: inline;
+    margin-left: 1.25%;
+}
