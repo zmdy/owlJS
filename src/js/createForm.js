@@ -23,14 +23,13 @@ function createTest(){
     document.body.appendChild(_parent);
     
     // Creates test
-    _test = createField('section', 'test', 'owlTest', _parent);
+    _test = createField('section', 'test', 'test', _parent);
     addComponent(_test);
     addControl(_test,'Question', createQuestion, deleteQuestion);
-    
 }
 
 /*
-* Creates new question
+* Function to generate dynamic questions
 */ 
 function createQuestion(){
     var
@@ -40,12 +39,12 @@ function createQuestion(){
     
     q = createField('section', 'question'+(ctd+1), 'question', parent);
     addComponent(q);
-    addControl(q, 'Answer');
-    addControl(q, 'Key');
+    addControl(q, 'Answer', createAnswer);
+    addControl(q, 'Key', createKey, deleteKey);
 }
 
 /*
-* Deletes last question
+* Deletes the last question
 */ 
 function deleteQuestion(){
     var 
@@ -55,6 +54,54 @@ function deleteQuestion(){
     
     query = document.querySelector(query);
     query.parentNode.removeChild(query);
+}
+
+/*
+* Function to generate new question answers
+*/ 
+function createAnswer(){
+    var
+        parent = this.parentNode.parentNode,
+        ctd = document.querySelectorAll('#' + parent.id + " > .answer").length || 0,
+        a;
+    
+    a = createField('span', parent.id + 'Answer' + (ctd+1), 'answer', parent);
+    addComponent(a);
+}
+
+/*
+* Deletes last question answer
+*/ 
+function deleteAnswer(){
+    var
+        parent = this.parentNode.parentNode,
+        ctd = parent.querySelectorAll('.answer').length || 0;
+        
+    parent.removeChild(parent.querySelectorAll('.answer')[ctd - 1]);
+}
+
+/*
+* Function to generate new question keys
+*/ 
+function createKey(){
+    var
+        parent = this.parentNode.parentNode,
+        ctd = document.querySelectorAll('#' + parent.id + " > .key").length || 0,
+        k;
+    
+    k = createField('span', parent.id + 'Key' + (ctd+1), 'key', parent);
+    addComponent(k);
+}
+
+/*
+* Deletes last question key
+*/ 
+function deleteKey(){
+    var
+        parent = this.parentNode.parentNode,
+        ctd = parent.querySelectorAll('.key').length || 0;
+        
+    parent.removeChild(parent.querySelectorAll('.key')[ctd - 1]);
 }
 
 /*
@@ -92,6 +139,8 @@ function addComponent(field){
         fields = {
             test: ['Name', 'Subject', 'Value', 'Instructions', 'Type'],
             question: ['Text', 'Value', 'Comment', 'Type', 'Answered', 'Points'],
+            answer: ['Text'],
+            key: ['Text']
         },
         
         testTypes = [ 'diagnostic', 'formative', 'summative'],
@@ -102,7 +151,7 @@ function addComponent(field){
             'fill', 'long', 'short'
         ],
 
-        auxName = field.id.replace(/\d/, "");
+        auxName = field.className.replace(/\d/, "");
     ;
 
     for (let x in fields[auxName]){
