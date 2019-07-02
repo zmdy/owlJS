@@ -14,21 +14,30 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: 'sans-serif';
+    font-family: 'Roboto', 'Arial', 'Ubuntu', 'sans-serif';
+    font-size: 1em;
+}
+
+/******************** Fonts ********************/
+
+/******************** Body ********************/
+body{
+    background: var(--gray9);
 }
 
 /******************** Owl Classes ********************/
 .owl{
-    width: 98vw;
+    width: 95vw;
     height: 96vh;
     
     padding: 1%;
-    
-    background: var(--gray0);
+    margin-left: 1.25%;
 }
 
 .owl section{
-    margin: 2.5% 0%;
+    margin: 1.25% 0%;
+    padding: 1.25%;
+    background: rgba(255,255,255,0.5);
 }
 
 .owl h1,
@@ -37,8 +46,11 @@
 .owl h4,
 .owl h5,
 .owl h6{
-    color: var(--blue6);
-    font-size: 1.5em;
+    color: var(--gray0);
+    font-size: 1.75em;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Alegreya Sans SC', 'Arial Black', 'Ubuntu', sans-serif;
 }
 
 .owl p,
@@ -64,7 +76,8 @@
 /******************** Button ********************/
 ._new,
 ._del{
-    width: 40% !important;
+    width: 15% !important;
+    margin-left: 1%;
     display: inline;
     float: right;
     box-shadow: none;
@@ -74,33 +87,40 @@
 ._new{
     background: var(--green4);
     border: solid 0.1em var(--green7);
+    color: var(--green7);
 }
 
 ._del{
     background: var(--red4);
     border: solid 0.1em var(--red7);
+    color: var(--red7) !important;
+}
+
+#owlCreate{
+    width: 31%;
+    margin: .5% 0% 0% 69%;
 }
 
 /******************** Question ********************/
 .owl .question{
     width: 95%;
     margin-left: 2.5%;    
-    border-bottom: dotted 0.1em var(--blue4);
+    background: rgba(255,255,255,0.5);
 }
 
 .owl .question h2{
-    color: var(--blue4);
+    color: var(--gray9);
     font-size: 1.25em;
 }
 
-.owl .question p:last-child{
-    margin-bottom: 5%;
+/******************** Question Answer | Question Key ********************/
+.answer{
+    width: 88% !important;
+    padding: 1%;
+    margin: 1% 5%;
+    background: rgba(255,255,255,0.5);
 }
 
-/******************** Question Answer | Question Key ********************/
-.question .answer,
-.question .key{
-    width: 45%;
-    display: inline;
-    margin-left: 1.25%;
+.answer h2{
+    color: var(--blue4) !important;
 }
