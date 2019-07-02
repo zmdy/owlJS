@@ -14,7 +14,8 @@ function createTest(){
     
     var
         _parent,
-        _test;
+        _test,
+        _btn;
     
     // Creates parent node
     _parent = document.createElement('main');
@@ -26,6 +27,13 @@ function createTest(){
     _test = createField('section', 'test', 'test', _parent);
     addComponent(_test);
     addControl(_test,'Question', createQuestion, deleteQuestion);
+    
+    // Creates button
+    _btn = document.createElement('input');
+    _btn.type = 'button';
+    _btn.value = 'Create Test';
+    _btn.id = 'owlCreate';
+    _test.appendChild(_btn);
 }
 
 /*
