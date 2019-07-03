@@ -212,6 +212,12 @@ function Identify(question){
     // 4th. step --> process questionValue
     this.processQuestionValue();
     
+    // 5th, step --> remove old functions
+    delete this.processQuestionAreas;
+    delete this.processQuestionValue;
+    delete this.setQuestionFields;
+    delete this.setQuestionKey;
+    
     // Nth. step --> returns the current object
     return this;
     
