@@ -74,6 +74,9 @@ function Stringify(obj){
         
         rtr += obj.questionAnswers[q]+ '\n';
     }
-    console.log(rtr);
     
+    this.string = rtr;
+    this.html = rtr.replace('\n', '<br/>')
+    
+    return this;
 }
