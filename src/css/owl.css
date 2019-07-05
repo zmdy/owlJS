@@ -19,6 +19,8 @@
 }
 
 /******************** Fonts ********************/
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300&display=swap');
 
 /******************** Body ********************/
 body{
@@ -50,7 +52,7 @@ body{
     font-size: 1.75em;
     text-align: center;
     text-transform: uppercase;
-    font-family: 'Alegreya Sans SC', 'Arial Black', 'Ubuntu', sans-serif;
+    font-family: 'Roboto', 'Arial Black', 'Ubuntu', sans-serif;
 }
 
 .owl p,
