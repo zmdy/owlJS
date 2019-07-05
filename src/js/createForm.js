@@ -33,6 +33,7 @@ function createTest(){
     _btn.type = 'button';
     _btn.value = 'Create Test';
     _btn.id = 'owlCreate';
+    _btn.onclick = submitForm;
     _test.appendChild(_btn);
 }
 
@@ -159,6 +160,7 @@ function addComponent(field){
                     var opt = document.createElement('option');
                     opt.value = objTypes[type];
                     opt.id = '_' + objTypes[type];
+                    opt.className = field.id.replace(/\d/g, '') + 'Object';
                     opt.innerHTML = objTypes[type];
                     
                     input.appendChild(opt);
@@ -166,8 +168,9 @@ function addComponent(field){
             }
         
             input.id = label.for;
-            input.placeholder =  field.id+ fields[auxName][x];
-            input.value =  field.id+ fields[auxName][x];
+            input.className = field.id.replace(/\d/g, '') + 'Object';
+            input.placeholder =  field.id + fields[auxName][x];
+            input.value =  field.id + fields[auxName][x];
 
             label.appendChild(input);
             field.appendChild(label);
