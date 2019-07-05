@@ -41,8 +41,6 @@
             i = new Identify(questions[q]),
             s = new Stringify(i);
         
-        
-        
         document.write("<h2>Object</h2>");
         
         document.write("<h3>Original Text</h3>");
@@ -52,5 +50,7 @@
         document.write(JSON.stringify(i) + "<hr/>");
         writeObject(i);
         
+        document.write("<h3>Stringified</h3>");
+        document.write(s.string + "<hr/>");
     }
 </script>
